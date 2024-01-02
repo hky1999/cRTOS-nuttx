@@ -977,7 +977,7 @@ int mcs99xx_probe(FAR struct pci_bus_s *bus,
  *
  ****************************************************************************/
 
-void up_earlyserialinit(void)
+void mcs_up_earlyserialinit(void)
 {
   /* Configuration whichever one is the console */
 
@@ -999,7 +999,7 @@ void up_earlyserialinit(void)
  *
  ****************************************************************************/
 
-void up_serialinit(void)
+void _up_serialinit(void)
 {
 #ifdef CONFIG_MCS99XX_UART_SERIAL_CONSOLE
   uart_register("/dev/console", &g_mcs99xx_console->uart_port);
@@ -1016,7 +1016,7 @@ void up_serialinit(void)
  ****************************************************************************/
 
 #ifdef HAVE_MCS99XX_CONSOLE
-int up_putc(int ch)
+int _up_putc(int ch)
 {
   FAR struct mcs99xx_dev_s *priv = g_mcs99xx_console;
   uint8_t ier;

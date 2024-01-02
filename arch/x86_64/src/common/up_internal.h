@@ -202,6 +202,9 @@ void up_addregion(void);
 
 /* Defined in xyz_serial.c */
 
+void mcs_up_earlyserialinit(void);
+
+
 #if CONFIG_NFILE_DESCRIPTORS > 0
 void up_earlyserialinit(void);
 void up_serialinit(void);
