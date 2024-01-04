@@ -240,7 +240,8 @@ static inline void nx_start_application(void)
    * entrypoint from the header at the beginning of the user-space blob.
    */
 
-  sinfo("Starting init thread\n");
+  sinfo("Starting init thread on 0x%lx\n", CONFIG_USER_ENTRYPOINT);
+  sinfo("Starting init thread on (main_t) 0x%x\n",(main_t) CONFIG_USER_ENTRYPOINT);
 
 #ifdef CONFIG_BUILD_PROTECTED
   DEBUGASSERT(USERSPACE->us_entrypoint != NULL);
@@ -405,6 +406,7 @@ static inline void nx_create_initthread(void)
 
 int nx_bringup(void)
 {
+		_info("nx_bringup \n");
 #ifndef CONFIG_DISABLE_ENVIRON
   /* Setup up the initial environment for the idle task.  At present, this
    * may consist of only the initial PATH variable and/or and init library

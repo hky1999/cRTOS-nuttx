@@ -1308,6 +1308,8 @@ void up_earlyserialinit(void)
   CONSOLE_DEV.isconsole = true;
 #ifndef CONFIG_16550_SUPRESS_INITIAL_CONFIG
   u16550_setup(&CONSOLE_DEV);
+
+	_info("up_earlyserialinit ok!!!\n");
 #endif
 #endif
 }

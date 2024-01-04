@@ -413,6 +413,8 @@ endif
 ifeq ($(CONFIG_RAW_BINARY),y)
 	@echo "CP: $(NUTTXNAME).bin"
 	$(Q) $(OBJCOPY) $(OBJCOPYARGS) -O binary $(BIN) $(NUTTXNAME).bin
+	@echo "OBJDUMP: $(NUTTXNAME).asm"
+	$(Q) objdump --demangle -d $(BIN) > $(NUTTXNAME).asm
 endif
 ifeq ($(CONFIG_UBOOT_UIMAGE),y)
 	@echo "MKIMAGE: uImage"

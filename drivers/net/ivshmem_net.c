@@ -1838,6 +1838,13 @@ int ivshmnet_probe(FAR struct pci_bus_s *bus,
 
   pci_enable_device(&dev->dev);
 
+  pciinfo("regs id %d\n", dev->regs->id);
+  pciinfo("regs max_peers %d\n", dev->regs->max_peers);
+  pciinfo("regs int_control %d\n", dev->regs->int_control);
+  pciinfo("regs doorbell %d\n", dev->regs->doorbell);
+  pciinfo("regs state %d\n", dev->regs->state);
+
+
   if (dev->regs->max_peers != 2)
       return -EINVAL;
 

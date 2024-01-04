@@ -1,0 +1,1 @@
+jailhouse cell destroy nuttx

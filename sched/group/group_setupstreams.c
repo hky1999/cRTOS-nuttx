@@ -56,6 +56,8 @@ int group_setupstreams(FAR struct task_tcb_s *tcb)
 {
   DEBUGASSERT(tcb && tcb->cmn.group);
 
+	_info("pid [%d] group_setupstreams\n", tcb->cmn.pid);
+
   /* Initialize file streams for the task group */
 
   lib_stream_initialize(tcb->cmn.group);

@@ -59,11 +59,11 @@ int printf(FAR const IPTR char *fmt, ...)
   int     ret;
 
   va_start(ap, fmt);
-#if CONFIG_NFILE_STREAMS > 0
-  ret = vfprintf(stdout, fmt, ap);
-#else
+// #if CONFIG_NFILE_STREAMS > 0
+//   ret = vfprintf(stdout, fmt, ap);
+// #else
   ret = nx_vsyslog(LOG_INFO, fmt, &ap);
-#endif
+// #endif
   va_end(ap);
 
   return ret;

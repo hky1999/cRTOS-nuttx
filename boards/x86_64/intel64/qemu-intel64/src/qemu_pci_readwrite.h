@@ -155,6 +155,19 @@ static inline uint32_t __qemu_pci_cfg_read(uint16_t bfd, uintptr_t addr,
 {
   DEBUGASSERT(size == 1 || size == 2 || size == 4);
 
+	// vid = bus->ops->pci_cfg_read(&tmp_dev, PCI_CFG_VENDOR_ID, 2);
+    // id = bus->ops->pci_cfg_read(&tmp_dev, PCI_CFG_DEVICE_ID, 2);
+    // rev = bus->ops->pci_cfg_read(&tmp_dev, PCI_CFG_REVERSION, 2);
+
+    // if (vid == PCI_ID_ANY)
+    //     continue;
+
+    //   pciinfo("[%02x:%02x.%x] Found %04x:%04x, class/reversion %08x\n",
+    //           bdf >> 8, (bdf >> 3) & 0x1f, bdf & 0x3,
+    //           vid, id, rev);
+
+//   pciinfo("bfd 0x%x addr 0x%x size 0x%x\n", bfd, addr, size);
+
   outl(PCI_CONE | ((uint32_t)bfd << 8) | (addr & 0xfc), PCI_REG_ADDR_PORT);
 
   switch (size)

@@ -515,6 +515,8 @@ long map_pages(struct vma_s *vma){
 void tux_mm_init(void)
 {
   /* 2^12 is 4KB, the PAGE_SIZE */
+  _info("CONFIG_TUX_USER_ADDR_START 0x%x\n", CONFIG_TUX_USER_ADDR_START);
+  _info("CONFIG_TUX_USER_ADDR_SIZE 0x%x\n", CONFIG_TUX_USER_ADDR_SIZE);
 
   tux_mm_hnd = gran_initialize((void *)CONFIG_TUX_USER_ADDR_START,
                                CONFIG_TUX_USER_ADDR_SIZE, 12, 12);

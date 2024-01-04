@@ -283,6 +283,8 @@ static uint32_t qemu_pci_cfg_read(FAR struct pci_dev_s *dev, uintptr_t addr,
 static void *qemu_pci_map_mem(FAR struct pci_dev_s *dev, uintptr_t addr,
                               unsigned long length)
 {
+  _info("addr 0x%x length 0x%x\n", addr, length);
+  
   if (addr && (addr < 0xffffffff))
     {
       up_map_region((void *)((uintptr_t)addr), length,
@@ -297,13 +299,22 @@ static void *qemu_pci_map_mem(FAR struct pci_dev_s *dev, uintptr_t addr,
     }
 #else
     {
+  	// _info("BAR_PAGE_COUNT %d addr 0x%x length 0x%x\n",
+	// 	CONFIG_QEMU_PCI_BAR_PAGE_COUNT,
+	// 	 addr, length);
+
+
       uintptr_t addr_to = (uintptr_t)qemu_page_alloc(length);
+
+	// _info("addr_to 0x%x\n",addr_to);
 
       if (!addr_to)
           return NULL;
 
       if (!addr)
         addr = addr_to;
+
+	// _info("addr_to 0x%x\n",addr_to);
 
       up_map_region_to((void *)addr_to, (void *)addr, length,
         X86_PAGE_WR | X86_PAGE_PRESENT | X86_PAGE_NOCACHE | X86_PAGE_GLOBAL);

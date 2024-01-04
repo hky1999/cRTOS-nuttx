@@ -92,6 +92,8 @@ void nxtask_start(void)
   int exitcode;
   int argc;
 
+  sinfo("nxtask_start\n");
+
   DEBUGASSERT((tcb->cmn.flags & TCB_FLAG_TTYPE_MASK) != \
               TCB_FLAG_TTYPE_PTHREAD);
 
@@ -143,7 +145,11 @@ void nxtask_start(void)
   else
 #endif
     {
-      exitcode = tcb->cmn.entry.main(argc, tcb->argv);
+      sinfo("pid [%d] call entry.main on %llx argc %d\n",tcb->cmn.pid, tcb->cmn.entry.main, argc);
+	  exitcode = tcb->cmn.entry.main(argc, tcb->argv);
+
+      sinfo("exit entry.main with code %d\n", exitcode);
+
     }
 
   /* Call exit() if/when the task returns */

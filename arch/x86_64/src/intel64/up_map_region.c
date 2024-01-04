@@ -48,6 +48,8 @@ int up_map_region_to(void *to_base, void *from_base, int size, int flags)
   uint64_t entry;
   int i;
 
+//  _info("to_base 0x%x from_base 0x%x size 0x%x\n",to_base,from_base, size);
+
   /* Round to page boundary */
 
   uint64_t tob = (uint64_t)to_base & PAGE_MASK;

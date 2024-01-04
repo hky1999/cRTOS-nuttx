@@ -198,6 +198,9 @@ int group_setuptaskfiles(FAR struct task_tcb_s *tcb)
 {
   FAR struct task_group_s *group = tcb->cmn.group;
 
+	_info("pid [%d] group_setuptaskfiles\n", tcb->cmn.pid);
+  
+
   DEBUGASSERT(group);
 #ifndef CONFIG_DISABLE_PTHREAD
   DEBUGASSERT((tcb->cmn.flags & TCB_FLAG_TTYPE_MASK) !=

@@ -871,6 +871,9 @@ int mcs99xx_probe(FAR struct pci_bus_s *bus,
 {
   uint32_t ser_ven_val;
 
+
+  pciinfo("mcs99xx_probe, bdf 0x%x\n", bdf);
+
   if (g_mcs99xx_count >= CONFIG_MCS99XX_UART_MAX_COUNT)
     {
       pcierr("Probed too many MCS99xx serial devices!\n");
@@ -896,7 +899,12 @@ int mcs99xx_probe(FAR struct pci_bus_s *bus,
       return -EINVAL;
     }
 
+  pciinfo("pci_find_cap\n");
+
   mdev->membase = (uint32_t *)(pci_map_bar(&mdev->dev, 1));
+
+  pciinfo("mdev->membase %x\n", mdev->membase);
+
 
   /* Enable device with MMIO region */
 

@@ -139,7 +139,10 @@ int pci_enumerate(FAR struct pci_bus_s *bus,
                           pciinfo("[%02x:%02x.%x] %s\n",
                                   bdf >> 8, (bdf >> 3) & 0x1f, bdf & 0x3,
                                   types[i]->name);
-                          types[i]->probe(bus, types[i], bdf);
+                          int res = types[i]->probe(bus, types[i], bdf);
+						  pciinfo("[%02x:%02x.%x] %s probe with res %d!!!!!\n\n\n",
+                                  bdf >> 8, (bdf >> 3) & 0x1f, bdf & 0x3,
+                                  types[i]->name, res);
                         }
                       else
                         {
@@ -465,6 +468,8 @@ void *pci_map_bar(FAR struct pci_dev_s *dev, uint32_t bar)
 
   uint32_t barmem = pci_get_bar(dev, bar);
   unsigned long length = pci_get_bar_size(dev, bar);
+
+  _info("bar 0x%x barmem 0x%x length 0x%x\n",bar,  barmem, length);
 
   if (((bar % 2) == 0 &&
       (barmem & PCI_BAR_64BIT) == PCI_BAR_64BIT) ||

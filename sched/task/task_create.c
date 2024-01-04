@@ -78,6 +78,8 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
 
   /* Allocate a TCB for the new task. */
 
+	sinfo("allocate name \"%s\" on entry 0x%llx\n", name, entry);
+
   tcb = (FAR struct task_tcb_s *)kmm_zalloc(sizeof(struct task_tcb_s));
   if (!tcb)
     {
@@ -92,7 +94,8 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
   ret = group_allocate(tcb, ttype);
   if (ret < 0)
     {
-      goto errout_with_tcb;
+      serr("ERROR: Failed on group_allocate\n");
+	  goto errout_with_tcb;
     }
 
 #if 0 /* No... there are side effects */
@@ -107,7 +110,8 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
       ret = group_setuptaskfiles(tcb);
       if (ret < OK)
         {
-          goto errout_with_tcb;
+          serr("ERROR: Failed on group_setuptaskfiles\n");
+		  goto errout_with_tcb;
         }
     }
 
@@ -116,7 +120,9 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
   ret = up_create_stack((FAR struct tcb_s *)tcb, stack_size, ttype);
   if (ret < OK)
     {
-      goto errout_with_tcb;
+          serr("ERROR: Failed on up_create_stack\n");
+      
+	  goto errout_with_tcb;
     }
 
   /* Initialize the task control block */
@@ -124,7 +130,8 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
   ret = nxtask_setup_scheduler(tcb, priority, nxtask_start, entry, ttype);
   if (ret < OK)
     {
-      goto errout_with_tcb;
+      serr("ERROR: Failed on nxtask_setup_scheduler\n");
+	  goto errout_with_tcb;
     }
 
   /* Setup to pass parameters to the new task */
@@ -136,7 +143,8 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
   ret = group_initialize(tcb);
   if (ret < 0)
     {
-      goto errout_with_tcb;
+      serr("ERROR: Failed on group_initialize\n");
+	  goto errout_with_tcb;
     }
 
   /* Get the assigned pid before we start the task */
@@ -151,7 +159,7 @@ static int nxthread_create(FAR const char *name, uint8_t ttype,
       /* The TCB was added to the active task list by
        * nxtask_setup_scheduler()
        */
-
+	  serr("ERROR: Failed on task_activate\n");
       dq_rem((FAR dq_entry_t *)tcb, (FAR dq_queue_t *)&g_inactivetasks);
       goto errout_with_tcb;
     }

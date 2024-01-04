@@ -125,6 +125,8 @@ int fs_fdopen(int fd, int oflags, FAR struct tcb_s *tcb,
       goto errout;
     }
 
+	_info("pid %d open fd %d\n", tcb->pid, fd);
+
   /* A NULL TCB pointer means to use this threads TCB.  This is a little
    * hack the let's this function be called from user-space (via a syscall)
    * without having access to the TCB.

@@ -107,7 +107,7 @@ void up_lowsetup(void)
 
   up_earlyserialinit();
 
-  mcs_up_earlyserialinit();
+//   mcs_up_earlyserialinit();
 
   x86_64_timer_calibrate_freq();
 

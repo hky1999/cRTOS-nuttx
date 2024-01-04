@@ -706,6 +706,8 @@ void nx_start(void)
 
   /* Hardware resources are now available */
 
+	_info("OSINIT_HARDWARE \n");
+
   g_nx_initstate = OSINIT_HARDWARE;
 
   /* Setup for Multi-Tasking ************************************************/
@@ -801,6 +803,8 @@ void nx_start(void)
   /* Bring Up the System ****************************************************/
 
   /* The OS is fully initialized and we are beginning multi-tasking */
+
+	_info("OSINIT_OSREADY \n");
 
   g_nx_initstate = OSINIT_OSREADY;
 

@@ -53,6 +53,8 @@ FAR struct streamlist *nxsched_get_streams(void)
   FAR struct tcb_s *rtcb = this_task();
   FAR struct task_group_s *group = rtcb->group;
 
+ _info("pid %d\n", rtcb->pid);
+
   DEBUGASSERT(group);
 
 #ifdef CONFIG_MM_KERNEL_HEAP
