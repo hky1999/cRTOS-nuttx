@@ -109,15 +109,23 @@ _tux_exec: argv[1] Hello World from sRTOS!
 _tux_exec: TOTAL: 2
 tux_delegate: Delegating syscall 4 to linux
 _tux_exec: Path: /bin/echo, size: 0x7a90
+
+# open /bin/echo
 tux_open_delegate: Open/Socket syscall 2, path: /bin/echo, flag: 0
 tux_open_delegate: Local open Flags: 0x1
 tux_local: Local syscall 2, 581
 tux_open_delegate: Unknown error
 tux_delegate: Delegating syscall 2 to linux
 tux_open_delegate: Open/Socket fd: 5
+
+# read /bin/echo from Linux file system
 tux_delegate: Delegating syscall 0 to linux
+
+# close file
 tux_file_delegate: Multiplexed File related syscall 3, fd: 5
 tux_delegate: Delegating syscall 3 to linux
+
+# Analyza elf file on Nuttx (read at void *binary)
 _tux_exec: Testing header...
 _tux_exec: ELF magic verified
 _tux_exec: x86-64 ELF verified
@@ -249,6 +257,10 @@ map_pages: TUX: mmap maped 0x200000 bytes at 0xf600000, backed by 0x8830000
 tux_delegate: Delegating syscall 9 to linux
 _tux_exec: Preparing _ehdr
 _tux_exec: Starting, jumping to: 0xc30
+===============================================================================
+
+
+
 syscall_handler: SYSCALL Entry nbr: 12
 syscall_handler: SYSCALL Task: 3 SRC: 000000000001a429
 syscall_handler: SYSCALL JMP: 000000010094b99a
@@ -271,6 +283,8 @@ tux_delegate: Delegating syscall 2 to linux
 tux_open_delegate: Open/Socket fd: 5
 linux_interface: ret = 5
 syscall_handler: END SYSCALL 2 Task: 3 ret:5
+
+############################# This is read
 syscall_handler: SYSCALL Entry nbr: 0
 syscall_handler: SYSCALL Task: 3 SRC: 000000000001b2f7
 syscall_handler: SYSCALL JMP: 000000010094b346
@@ -281,6 +295,8 @@ tux_file_delegate: Multiplexed File related syscall 0, fd: 5
 tux_delegate: Delegating syscall 0 to linux
 linux_interface: ret = 340
 syscall_handler: END SYSCALL 0 Task: 3 ret:340
+
+
 syscall_handler: SYSCALL Entry nbr: 5
 syscall_handler: SYSCALL Task: 3 SRC: 000000000001b264
 syscall_handler: SYSCALL JMP: 000000010094c0bf

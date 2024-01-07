@@ -45,27 +45,27 @@
  ****************************************************************************/
 
 syscall_t linux_syscall_action_table[500] = {
-    tux_file_delegate, // SYS_read
-    tux_file_delegate, // SYS_write
-    tux_open_delegate, // SYS_open
-    tux_file_delegate, // SYS_close
-    tux_delegate, // SYS_stat
-    tux_file_delegate, // SYS_fstat
-    tux_delegate, // sys_lstat
-    (syscall_t)tux_poll, // SYS_poll,
-    tux_file_delegate, // SYS_lseek,
-    (syscall_t)tux_mmap,
-    (syscall_t)tux_success_stub, // XXX: SYS_mprotect Missing logic, how to protect flat memory space
-    (syscall_t)tux_munmap,
-    (syscall_t)tux_brk,
-    (syscall_t)tux_rt_sigaction, // SYS_rt_sigaction
-    (syscall_t)tux_rt_sigprocmask, // SYS_rt_sigprocmask
-    tux_no_impl, // SYS_sigreturn,
-    tux_file_delegate, // SYS_ioctl,
-    tux_file_delegate, // SYS_pread,
-    tux_file_delegate, // SYS_pwrite,
-    tux_file_delegate, // sys_readv
-    tux_file_delegate, // sys_writev
+    tux_file_delegate, // 0 SYS_read
+    tux_file_delegate, // 1 SYS_write
+    tux_open_delegate, // 2 SYS_open
+    tux_file_delegate, // 3 SYS_close
+    tux_delegate, // 4 SYS_stat
+    tux_file_delegate, // 5 SYS_fstat
+    tux_delegate, // 6 sys_lstat
+    (syscall_t)tux_poll, //  7 SYS_poll,
+    tux_file_delegate, // 8 SYS_lseek,
+    (syscall_t)tux_mmap, // 9
+    (syscall_t)tux_success_stub, // 10 XXX: SYS_mprotect Missing logic, how to protect flat memory space
+    (syscall_t)tux_munmap, // 11,
+    (syscall_t)tux_brk, //12
+    (syscall_t)tux_rt_sigaction, // 13 SYS_rt_sigaction
+    (syscall_t)tux_rt_sigprocmask, // 14 SYS_rt_sigprocmask
+    tux_no_impl, // 15 SYS_sigreturn,
+    tux_file_delegate, // 16 SYS_ioctl,
+    tux_file_delegate, // 17 SYS_pread,
+    tux_file_delegate, // 18 SYS_pwrite,
+    tux_file_delegate, // 19 sys_readv
+    tux_file_delegate, // 20 sys_writev
     tux_delegate, // sys_access
     (syscall_t)tux_pipe, // sys_pipe
     (syscall_t)tux_select, // sys_select

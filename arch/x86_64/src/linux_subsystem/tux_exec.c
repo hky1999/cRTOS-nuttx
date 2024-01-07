@@ -118,11 +118,11 @@ void *exec_setupargs(uint64_t stack,
 
   sp = (void *)(stack + TUX_STACK_SIZE - total_size - PAGE_SIZE);
 
-  sinfo("Setting up stack args at %p\n", sp);
+  _info("Setting up stack args at %p\n", sp);
 
   *((uint64_t *)sp) = argc;
 
-  sinfo("Setting up stack argc is %d\n", *(((uint64_t *)sp) - 1));
+  _info("Setting up stack argc is %d\n", *(((uint64_t *)sp) - 1));
 
   done = 0;
   argv_ptr = ((char **)(((uint8_t *)sp) + sizeof(uint64_t)));
@@ -221,6 +221,7 @@ long _tux_exec(char *path, char *argv[], char *envp[])
    * Get the ELF header
    */
 
+  // Open file.
   int elf_fd =
       tux_open_delegate(2, (uintptr_t)path, TUX_O_RDONLY, 0, 0, 0, 0);
   if (elf_fd < 0)
@@ -238,6 +239,9 @@ long _tux_exec(char *path, char *argv[], char *envp[])
    * This retains the pristine pda and vma in TCB
    */
 
+  _info("Try to read ELF at binary 0x%p\n", binary);
+
+  // Read file.
   int readed = tux_delegate(0, elf_fd, (uintptr_t)binary, filesz, 0, 0, 0);
   if (readed != filesz)
     {
@@ -248,6 +252,8 @@ long _tux_exec(char *path, char *argv[], char *envp[])
 
   /* We got everything in memory, not needed any more */
 
+
+  // Close file
   tux_file_delegate(3, elf_fd, 0, 0, 0, 0, 0);
 
   svcinfo("Testing header...\n");
